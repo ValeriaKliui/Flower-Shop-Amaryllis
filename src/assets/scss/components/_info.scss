@@ -1,0 +1,21 @@
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  grid-column-start: 2;
+  @media (max-width: 640px) {
+    grid-column-start: unset;
+  }
+  .info__pic {
+    max-width: 150px;
+  }
+  .info__text {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    max-width: 600px;
+    text-align: center;
+  }
+}

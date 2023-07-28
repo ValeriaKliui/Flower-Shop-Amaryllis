@@ -1,0 +1,39 @@
+.logo {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  flex: 0 0 400px;
+  cursor: pointer;
+  transition: ease-in all 0.1s;
+  position: relative;
+  z-index: 10;
+  &:hover {
+    transform: scale(1.03);
+  }
+  @media (max-width: 640px) {
+    flex: unset;
+    justify-content: space-between;
+  }
+}
+
+.logo__img {
+  display: block;
+  flex: 0 0 55px;
+
+  @media (max-width: 640px) {
+    flex: 0;
+  }
+}
+.logo__link {
+  display: flex;
+}
+
+.logo__title {
+  text-transform: uppercase;
+}
+
+.logo__text {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}

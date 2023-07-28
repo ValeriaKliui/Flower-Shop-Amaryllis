@@ -1,0 +1,55 @@
+.footer {
+  display: flex;
+  justify-content: center;
+  border-top: $pole 1px solid;
+  grid-row-start: 3;
+  grid-row-end: 3;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.footer__flowers {
+  display: flex;
+  position: relative;
+  top: -5px;
+  gap: 100px;
+  align-items: flex-start;
+  justify-content: center;
+  .footer_flower:hover {
+    animation: rotate-flowers infinite 3s;
+  }
+}
+@keyframes rotate-flowers {
+  0% {
+    transform: rotate(0);
+  }
+  10% {
+    transform: rotate(4deg);
+  }
+  20% {
+    transform: rotate(-3deg);
+  }
+  30% {
+    transform: rotate(2deg);
+  }
+  40% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(4deg);
+  }
+  60% {
+    transform: rotate(-3deg);
+  }
+  70% {
+    transform: rotate(2deg);
+  }
+  80% {
+    transform: rotate(-1deg);
+  }
+  90% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}

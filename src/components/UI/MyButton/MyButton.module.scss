@@ -1,0 +1,39 @@
+@import "../../../assets/scss/_variables.scss";
+
+.MyButton {
+  background-color: $bright;
+  border: none;
+  color: $the-lightest;
+  font-weight: 600;
+  padding: 11px 25px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  transition: ease-in all 0.1s;
+  min-width: 150px;
+  &:hover {
+    background-color: $bright-darker;
+  }
+}
+.MyButton_shadowed {
+  padding: 10px 20px;
+  border: 0.5px solid $bright;
+  background-color: transparent;
+  color: $bright;
+  &:hover {
+    background-color: $bright;
+    color: $the-lightest;
+  }
+}
+
+.MyButton_divided__left {
+  padding: 0 8px;
+  border-right: 1px solid $light;
+}
+.MyButton_divided__right {
+  padding: 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

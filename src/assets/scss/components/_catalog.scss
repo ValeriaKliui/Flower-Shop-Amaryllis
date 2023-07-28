@@ -1,0 +1,140 @@
+.catalog__title {
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: center;
+}
+.catalog__items {
+  display: grid;
+  grid-template-columns: repeat(3, 275px);
+  gap: 90px;
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(2, 275px);
+    gap: 50px;
+    justify-content: center;
+  }
+  @media (max-width: 640px) {
+    grid-template-columns: repeat(1, 275px);
+  }
+}
+.catalog__item {
+  display: flex;
+  flex: 0 0 275px;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  transition: ease-in all 0.1s;
+  justify-content: flex-end;
+  object-fit: cover;
+  &:hover {
+    transform: scale(1.03) translateY(-1px);
+  }
+}
+.item__pic {
+  flex: 0 0 260px;
+}
+.choose-size {
+  background-color: $bright-light;
+  display: flex;
+  gap: 10px;
+  padding: 8px;
+  width: 100%;
+  justify-content: space-around;
+}
+.size {
+  padding: 15px 35px;
+  cursor: pointer;
+  &:hover {
+    background-color: $the-lightest;
+  }
+}
+.size_choosen {
+  background-color: $the-lightest;
+}
+.item__info {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.search {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+  @media (max-width: 1200px) {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+.categories {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  @media (max-width: 1200px) {
+    justify-content: space-between;
+  }
+}
+.category {
+  padding: 10px 20px;
+  border: 0.5px solid $bright;
+  font-weight: 600;
+  cursor: pointer;
+  transition: ease-in all 0.1s;
+  &:hover {
+    color: $the-lightest;
+    background-color: $bright;
+  }
+  @media (max-width: 1200px) {
+    padding: 10px 70px;
+  }
+  @media (max-width: 640px) {
+    padding: 10px 15px;
+  }
+}
+.category_choosen {
+  color: $the-lightest;
+  background-color: $bright;
+}
+.filter_sort {
+  display: flex;
+  gap: 50px;
+  justify-content: space-between;
+  width: 100%;
+  @media (max-width: 640px) {
+    gap: 5px;
+  }
+}
+.sort {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  position: relative;
+}
+.sort__options {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid $bright;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 0.35s ease-in-out, visibility 0s ease-in-out;
+  background-color: $the-lightest;
+}
+.sort_choosen {
+  color: $bright;
+  border-bottom: 1px dotted $bright;
+  cursor: pointer;
+}
+.sort__option {
+  padding: 14px;
+  transition: ease-in all 0.1s;
+  &:hover {
+    background-color: $bright-light;
+  }
+}

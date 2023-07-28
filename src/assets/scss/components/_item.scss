@@ -1,0 +1,29 @@
+.item__wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+.item__properties {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: flex-start;
+  align-items: center;
+}
+.item__prices,
+.item__sizes {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  .item__size,
+  .item__price {
+    padding: 10px 20px;
+    border: 0.5px solid $bright;
+    font-weight: 600;
+    cursor: pointer;
+    transition: ease-in all 0.1s;
+    &:hover {
+      color: $the-lightest;
+      background-color: $bright;
+    }
+  }
+}

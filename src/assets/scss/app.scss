@@ -1,0 +1,102 @@
+@import "./variables";
+@import "./libs/normalize";
+@import "../fonts/stylesheet.css";
+@import "./components/all";
+
+.wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  @media (max-width: 1200px) {
+    max-width: 590px;
+  }
+  @media (max-width: 640px) {
+    max-width: 260px;
+  }
+}
+h1 {
+  font-weight: bold;
+  color: $bright-darker;
+}
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "FredokaOne";
+  font-weight: 400;
+  color: $bright-darker;
+}
+p {
+  font-weight: 500;
+}
+.text_bright {
+  color: $bright;
+}
+.text_bold {
+  font-weight: 700;
+}
+#root {
+  font-family: "Gilroy";
+  display: grid;
+}
+#non-visible {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease-in-out, visibility 0s 0.35s ease-in-out;
+}
+.search,
+.catalog,
+.main-screen,
+.main-screen__title,
+.cart,
+.item,
+.footer {
+  margin-bottom: 70px;
+  @media (max-width: 1200px) {
+    margin-bottom: 40px;
+  }
+}
+.header__plant {
+  position: absolute;
+  left: 2%;
+  top: -2%;
+  &:hover {
+    animation: rotate-flowers infinite 8s;
+  }
+  @media (max-width: 1200px) {
+    left: 2%;
+  }
+  @media (max-width: 640px) {
+    left: unset;
+    right: 0;
+    max-width: 100px;
+  }
+}
+.content {
+  flex: 1 0 auto;
+  min-height: 40vh;
+  display: flex;
+  flex-direction: column;
+}
+.close {
+  cursor: pointer;
+  .close__pic {
+    path {
+      fill: $bright;
+    }
+    path:hover {
+      fill: red;
+    }
+  }
+  &:hover {
+    path {
+      fill: red;
+    }
+  }
+}
+.close__pic {
+  width: 12px;
+}
+.delete__pic {
+  width: 20px;
+}
