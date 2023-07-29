@@ -1,19 +1,21 @@
-import { Route, Routes } from "react-router-dom";
-import "./assets/scss/app.scss";
-import Header from "./components/Header";
-import { Footer } from "./components/Footer";
-import { Home } from "./pages/Home";
-import { Cart } from "./pages/Cart";
-import { Item } from "./pages/Item";
-import React, { useEffect } from "react";
-import { fetchFlowers } from "./slices/flowers/flowersSlice";
-import { useAppDispatch } from "./assets/hooks/hooks";
+import { Route, Routes } from 'react-router-dom';
+import './assets/scss/app.scss';
+import Header from './components/Header';
+import { Footer } from './components/Footer';
+import { Home } from './pages/Home';
+import { Cart } from './pages/Cart';
+import { Item } from './pages/Item';
+import React, { useEffect } from 'react';
+import { fetchFlowers } from './slices/flowers/flowersSlice';
+import { useAppDispatch } from './assets/hooks/hooks';
+import { fetchFlowersAtCart } from './slices/cart/flowersAtCart';
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchFlowers());
+    dispatch(fetchFlowersAtCart());
   }, []);
 
   return (

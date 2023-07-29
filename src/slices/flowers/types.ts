@@ -5,9 +5,10 @@ export type Flower = {
   size: string[];
   src: string;
   category: string;
+  amount?: number;
 };
 
 export interface FlowersState {
   flowers: Flower[];
-  status: "success" | "loading" | "failed";
+  status: 'success' | 'loading' | 'failed';
 }

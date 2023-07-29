@@ -1,20 +1,21 @@
-import { useState, useEffect } from "react";
-import { useAppSelector, useAppDispatch } from "../assets/hooks/hooks";
-// import {
-//   addExistToCart,
-//   addNewToCart,
-//   useSelectorItemsAtCart,
-// } from "../slices/itemsAtCartSLice";
-import { MyButton } from "./UI/MyButton/MyButton";
-import React from "react";
-import { addToCartAsync, increaseAmount } from "../slices/cart/flowersAtCart";
+import { useState } from 'react';
+import {
+  useAppSelector,
+  useAppDispatch,
+} from '../assets/hooks/hooks';
+import { MyButton } from './UI/MyButton/MyButton';
+import React from 'react';
+import {
+  addToCartAsync,
+  increaseAmount,
+  selectFlowersAtCart,
+} from '../slices/cart/flowersAtCart';
 
 type Item = {
   id: number;
   price: string[];
   size: string[];
-  // amount: number;
-  // parentId?: string;
+  amount?: number;
   name: string;
   src: string;
   category: string;
@@ -25,38 +26,14 @@ interface CatalogItemProps {
 }
 
 export const CatalogItem: React.FC<CatalogItemProps> = ({ item }) => {
-  const { id, src, name, price, size, category } = item;
+  const { id, src, name, price, size } = item;
   const [choosenSize, setChoosenSize] = useState(size[0]);
   const [choosenPrice, setChoosenPrice] = useState(price[0]);
-  // const [amountAtCart, setAmountAtCart] = useState<number | null>(0);
   const dispatch = useAppDispatch();
-  // // const itemsAtCart = useAppSelector(useSelectorItemsAtCart).itemsAtCart;
-  // const itemsAtCart = [];
-  // let itemAtCart = itemsAtCart.find((e) => {
-  //   if (e.name === name && e.size === choosenSize) return e;
-  //   else return null;
-  // });
-
-  // useEffect(() => {
-  //   if (itemAtCart) {
-  //     setAmountAtCart(itemAtCart.amount);
-  //   } else setAmountAtCart(null);
-  // }, [choosenSize, itemsAtCart]);
-
-  // function checkAndAdd(item: Item) {
-  //   const itemAtCart = itemsAtCart.find(
-  //     (e) => e.name === item.name && e.size === item.size
-  //   );
-  //   if (!!itemAtCart) {
-  //     setAmountAtCart(itemAtCart.amount + 1);
-  //     dispatch(
-  //       addExistToCart({ ...itemAtCart, amount: itemAtCart.amount + 1 })
-  //     );
-  //   } else {
-  //     setAmountAtCart(1);
-  //     dispatch(addNewToCart({ ...item, amount: 1 }));
-  //   }
-  // }
+  const flowersACart = useAppSelector(selectFlowersAtCart);
+  const alreadyAtCart = flowersACart.find(
+    (item) => item.name === name && item.size === choosenSize
+  );
 
   return (
     <div key={id} className="catalog__item">
@@ -72,7 +49,9 @@ export const CatalogItem: React.FC<CatalogItemProps> = ({ item }) => {
         {Array.isArray(size) &&
           size.map((e, index) => (
             <div
-              className={choosenSize === e ? "size size_choosen" : "size"}
+              className={
+                choosenSize === e ? 'size size_choosen' : 'size'
+              }
               key={index}
               onClick={() => {
                 setChoosenSize(e);
@@ -87,24 +66,26 @@ export const CatalogItem: React.FC<CatalogItemProps> = ({ item }) => {
         <h3 className="text_bright ">{choosenPrice} BYN</h3>
         <MyButton
           text="add"
-          amountAtCart={100}
-          isDivided={!!100 && true}
+          amountAtCart={alreadyAtCart?.amount}
+          isDivided={!!alreadyAtCart?.amount && true}
           onClick={() => {
-            dispatch(
-              addToCartAsync({
-                ...item,
-                size: choosenSize,
-                price: choosenPrice,
-              })
-            );
-            // dispatch(
-            //   increaseAmount({ id, size: choosenSize, price: choosenPrice })
-            // );
-            // checkAndAdd({
-            //   ...item,
-            //   size: choosenSize,
-            //   price: choosenPrice,
-            // });
+            alreadyAtCart
+              ? dispatch(
+                  increaseAmount({
+                    id: alreadyAtCart.id!,
+                    size: choosenSize,
+                    price: choosenPrice,
+                    amount: alreadyAtCart.amount + 1,
+                  })
+                )
+              : dispatch(
+                  addToCartAsync({
+                    ...item,
+                    size: choosenSize,
+                    price: choosenPrice,
+                    amount: 1,
+                  })
+                );
           }}
         />
       </div>

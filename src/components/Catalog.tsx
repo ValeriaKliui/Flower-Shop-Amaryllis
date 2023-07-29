@@ -1,10 +1,13 @@
-import { CatalogItem } from "./CatalogItem";
-import { useAppSelector } from "../assets/hooks/hooks";
-import { Info } from "./Info";
+import { CatalogItem } from './CatalogItem';
+import { useAppSelector } from '../assets/hooks/hooks';
+import { Info } from './Info';
 // import { useGetAllItems } from "../assets/hooks/useGetAllItems";
 // import { useSelectorCategory, useSelectorSort } from "../slices/filterSlice";
-import React from "react";
-import { selectFlowers, selectStatus } from "../slices/flowers/flowersSlice";
+import React from 'react';
+import {
+  selectFlowers,
+  selectStatus,
+} from '../slices/flowers/flowersSlice';
 
 export const Catalog: React.FC = () => {
   const flowers = useAppSelector(selectFlowers);
@@ -43,10 +46,10 @@ export const Catalog: React.FC = () => {
   return (
     <div className="catalog">
       <div className="wrapper catalog__wrapper">
-        {status === "success" && (
+        {status === 'success' && (
           <h2 className="catalog__title">Choose your Dream Plant</h2>
         )}
-        {status === "success" ? (
+        {status === 'success' ? (
           <div className="catalog__items">
             {flowers.map((item) => {
               return <CatalogItem key={item.id} item={item} />;
@@ -56,9 +59,9 @@ export const Catalog: React.FC = () => {
           <Info
             title="oops..."
             text={
-              status === "failed"
-                ? "something went wrong"
-                : "we dont have this plant yet"
+              status === 'failed'
+                ? 'something went wrong'
+                : 'we dont have this plant yet'
             }
           />
         )}
