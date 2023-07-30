@@ -1,21 +1,16 @@
 import Logo from './Logo';
 import { MyButton } from './UI/MyButton/MyButton';
 import plant from '../assets/icons/plant.svg';
-import { Link } from 'react-router-dom';
-import { useAppSelector } from '../assets/hooks/hooks';
+import { Link, useLocation } from 'react-router-dom';
 import React from 'react';
-import { selectFlowersAtCart } from '../slices/cart/flowersAtCart';
+import { usePriceAmount } from '../assets/hooks/usePriceAmount';
 
 const Header: React.FC = () => {
-  const flowersAtCart = useAppSelector(selectFlowersAtCart);
-  const totalPrice = flowersAtCart.reduce(
-    (acc, elem) => acc + +elem.price * elem.amount,
-    0
-  );
-  const totalAmount = flowersAtCart.reduce(
-    (acc, elem) => acc + elem.amount,
-    0
-  );
+  const totalAmount = usePriceAmount().totalAmount;
+  const totalPrice = usePriceAmount().totalPrice;
+  const location = useLocation();
+  const isCart = location.pathname.includes('cart');
+
   return (
     <header className="header">
       <img src={plant} alt="plant" className="header__plant" />
@@ -23,13 +18,15 @@ const Header: React.FC = () => {
         <Link to="/">
           <Logo />
         </Link>
-        <Link to="/cart">
-          <MyButton
-            isDivided={true}
-            text={totalPrice ? totalPrice + ' BYN' : 'cart'}
-            amountAtCart={totalAmount > 0 && totalAmount}
-          />
-        </Link>
+        {!isCart && (
+          <Link to="/cart">
+            <MyButton
+              isDivided={true}
+              text={totalPrice > 0 ? totalPrice + ' BYN' : 'cart'}
+              amountAtCart={totalAmount > 0 && totalAmount}
+            />
+          </Link>
+        )}
       </div>
     </header>
   );

@@ -12,7 +12,9 @@ export const fetchFlowers = createAsyncThunk<
   const baseUrl = 'https://t8ywpv.sse.codesandbox.io/flowers';
   let paramsUrl = '';
   for (const key in params) {
-    paramsUrl = `${paramsUrl}${key}=${params[key as keyof params]}&`;
+    paramsUrl = params[key as keyof params]
+      ? `${paramsUrl}${key}=${params[key as keyof params]}&`
+      : '';
   }
   const requestUrl = baseUrl.concat('?', paramsUrl);
   const response = await axios.get<Flower[]>(requestUrl);

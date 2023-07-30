@@ -10,17 +10,13 @@ import {
 import { Link } from 'react-router-dom';
 import { Info } from '../components/Info';
 import { selectFlowersAtCart } from '../slices/cart/flowersAtCart';
+import { usePriceAmount } from '../assets/hooks/usePriceAmount';
+import { cleanCart } from '../slices/cart/asyncActions';
 
 export const Cart: React.FC = () => {
   const flowersAtCart = useAppSelector(selectFlowersAtCart);
-  const totalPrice = flowersAtCart.reduce(
-    (acc, elem) => acc + +elem.price * elem.amount,
-    0
-  );
-  const totalAmount = flowersAtCart.reduce(
-    (acc, elem) => acc + elem.amount,
-    0
-  );
+  const totalAmount = usePriceAmount().totalAmount;
+  const totalPrice = usePriceAmount().totalPrice;
   const dispatch = useAppDispatch();
 
   return (
@@ -33,7 +29,10 @@ export const Cart: React.FC = () => {
                 <img src={cartPic} alt="your cart" />
                 <h2>your cart</h2>
               </div>
-              <div className="cart_top__clean">
+              <div
+                className="cart_top__clean"
+                onClick={() => dispatch(cleanCart(flowersAtCart))}
+              >
                 <p>clean cart</p>
                 <img src={cleanPic} alt="clean cart" />
               </div>

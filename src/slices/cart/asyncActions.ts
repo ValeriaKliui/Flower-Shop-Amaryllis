@@ -97,3 +97,22 @@ export const deleteFlower = createAsyncThunk<
   }
   return id;
 });
+
+export const cleanCart = createAsyncThunk<
+  undefined,
+  FlowerAtCart[],
+  {
+    rejectValue: string;
+  }
+>('flowersAtCart/cleanCart', async (flowers, { rejectWithValue }) => {
+  let response;
+  for (const flower of flowers) {
+    response = await axios.delete(
+      `https://t8ywpv.sse.codesandbox.io/cart/${flower.id}`
+    );
+  }
+  if (!response) {
+    return rejectWithValue('Server Error!');
+  }
+  return response.data;
+});

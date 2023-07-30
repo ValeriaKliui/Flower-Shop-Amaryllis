@@ -10,6 +10,7 @@ import {
   fetchFlowersAtCart,
   increaseAmount,
   deleteFlower,
+  cleanCart,
 } from './asyncActions';
 
 const initialState: FlowersAtCartState = {
@@ -35,8 +36,7 @@ export const flowersAtCart = createSlice({
       )
       .addCase(fetchFlowersAtCart.rejected, (state) => {
         state.status = 'failed';
-      });
-    builder
+      })
       .addCase(addToCartAsync.pending, (state) => {
         state.status = 'loading';
       })
@@ -52,8 +52,7 @@ export const flowersAtCart = createSlice({
       )
       .addCase(addToCartAsync.rejected, (state) => {
         state.status = 'failed';
-      });
-    builder
+      })
       .addCase(increaseAmount.pending, (state) => {
         state.status = 'loading';
       })
@@ -70,8 +69,7 @@ export const flowersAtCart = createSlice({
       )
       .addCase(increaseAmount.rejected, (state) => {
         state.status = 'failed';
-      });
-    builder
+      })
       .addCase(deleteFlower.pending, (state) => {
         state.status = 'loading';
       })
@@ -85,6 +83,16 @@ export const flowersAtCart = createSlice({
         }
       )
       .addCase(deleteFlower.rejected, (state) => {
+        state.status = 'failed';
+      })
+      .addCase(cleanCart.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(cleanCart.fulfilled, (state) => {
+        state.status = 'success';
+        state.flowersAtCart = [];
+      })
+      .addCase(cleanCart.rejected, (state) => {
         state.status = 'failed';
       });
   },
