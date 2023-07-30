@@ -1,9 +1,4 @@
 import { useAppDispatch } from '../assets/hooks/hooks';
-// import {
-//   removeFromCart,
-//   decreaseAmount,
-//   increaseAmount,
-// } from '../slices/itemsAtCartSLice';
 import React from 'react';
 import {
   decreaseAmount,
@@ -12,7 +7,7 @@ import {
 } from '../slices/cart/asyncActions';
 
 type CartItemProps = {
-  id: number;
+  id: number | undefined;
   src: string;
   name: string;
   price: string[] | string;
@@ -46,16 +41,18 @@ export const CartItem: React.FC<CartItemProps> = ({
       <div className="amount">
         <div
           className="decrease"
-          onClick={() =>
-            amount > 1
-              ? dispatch(
-                  decreaseAmount({
-                    id,
-                    amount: amount - 1,
-                  })
-                )
-              : dispatch(deleteFlower(id))
-          }
+          onClick={() => {
+            if (id) {
+              amount > 1
+                ? dispatch(
+                    decreaseAmount({
+                      id,
+                      amount: amount - 1,
+                    })
+                  )
+                : dispatch(deleteFlower(id));
+            }
+          }}
         >
           <svg
             className="close__pic delete__pic"
@@ -71,6 +68,7 @@ export const CartItem: React.FC<CartItemProps> = ({
         <div
           className="increase"
           onClick={() =>
+            id &&
             dispatch(
               increaseAmount({
                 id,
@@ -94,7 +92,7 @@ export const CartItem: React.FC<CartItemProps> = ({
       <p>{price} BYN</p>
       <div
         className="close"
-        onClick={() => dispatch(deleteFlower(id))}
+        onClick={() => id && dispatch(deleteFlower(id))}
       >
         <svg
           className="close__pic delete__pic"

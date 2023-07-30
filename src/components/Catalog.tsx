@@ -39,7 +39,7 @@ export const Catalog: React.FC = () => {
         {status === 'success' && itemsSorted().length > 0 ? (
           <div className="catalog__items">
             {itemsSorted().map((item) => {
-              return <CatalogItem key={item.id} item={item} />;
+              return <CatalogItem item={item} key={item.id} />;
             })}
           </div>
         ) : (

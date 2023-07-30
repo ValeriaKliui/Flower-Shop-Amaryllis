@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { MyButton } from './UI/MyButton/MyButton';
 import emptyCartPic from '../assets/icons/withered-plant.png';
+import React from 'react';
 
 type InfoProps = {
   title: string;

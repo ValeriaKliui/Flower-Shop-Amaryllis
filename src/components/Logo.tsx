@@ -1,4 +1,5 @@
 import logo from '../assets/icons/logo.svg';
+import React from 'react';
 
 const Logo: React.FC = () => {
   return (

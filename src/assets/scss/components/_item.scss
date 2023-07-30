@@ -1,19 +1,21 @@
 .item__wrapper {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  gap: 100px;
 }
 .item__properties {
   display: flex;
   flex-direction: column;
   gap: 20px;
   justify-content: flex-start;
-  align-items: center;
 }
 .item__prices,
 .item__sizes {
   display: flex;
   gap: 20px;
   align-items: center;
+  justify-content: space-evenly;
   .item__size,
   .item__price {
     padding: 10px 20px;
@@ -26,4 +28,11 @@
       background-color: $bright;
     }
   }
+}
+
+.item__pic {
+  max-width: 200px;
+}
+.item__name {
+  text-align: center;
 }

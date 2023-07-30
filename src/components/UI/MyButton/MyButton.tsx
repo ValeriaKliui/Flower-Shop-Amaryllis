@@ -1,5 +1,6 @@
 import classes from './MyButton.module.scss';
 import shoppingCartPic from '../../../assets/icons/shopping-cart.svg';
+import React from 'react';
 
 type MyButtonProps = {
   isDivided?: boolean;

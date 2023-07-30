@@ -37,13 +37,15 @@ export const CatalogItem: React.FC<CatalogItemProps> = ({ item }) => {
 
   return (
     <div key={id} className="catalog__item">
-      <img
-        src={src}
-        alt={name}
-        className="item__pic"
-        width="230px"
-        height="300px"
-      />
+      <a a href={`${item.id}`}>
+        <img
+          src={src}
+          alt={name}
+          className="item__pic"
+          width="230px"
+          height="300px"
+        />
+      </a>
       <h3 className="item__name">{name}</h3>
       <div className="choose-size">
         {Array.isArray(size) &&
