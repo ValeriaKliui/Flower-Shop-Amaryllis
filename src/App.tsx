@@ -6,9 +6,9 @@ import { Home } from './pages/Home';
 import { Cart } from './pages/Cart';
 import { Item } from './pages/Item';
 import React, { useEffect } from 'react';
-import { fetchFlowers } from './slices/flowers/flowersSlice';
+import { fetchFlowers } from './slices/flowers/asyncActions';
 import { useAppDispatch } from './assets/hooks/hooks';
-import { fetchFlowersAtCart } from './slices/cart/flowersAtCart';
+import { fetchFlowersAtCart } from './slices/cart/asyncActions';
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -24,7 +24,7 @@ const App: React.FC = () => {
       <main className="content">
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* <Route path="/cart" element={<Cart />} /> */}
+          <Route path="/cart" element={<Cart />} />
           <Route path="/plant/:pageId" element={<Item />} />
         </Routes>
       </main>

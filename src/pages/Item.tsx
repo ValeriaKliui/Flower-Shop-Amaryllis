@@ -1,5 +1,4 @@
 import { useParams } from 'react-router-dom';
-import { useGetAllItems } from '../assets/hooks/useGetAllItems';
 
 interface ItemP {
   id: string;
@@ -12,15 +11,15 @@ interface ItemP {
 }
 
 export const Item: React.FC = () => {
-  const { pageId } = useParams();
-  const allItems = useGetAllItems();
-  const item = allItems.filter((e) => pageId && +e.id === +pageId)[0];
-  if (!item) return <div className="wrapper">loading</div>;
-  const { src, name, price, size }: ItemP = item;
+  // const { pageId } = useParams();
+  // const allItems = useGetAllItems();
+  // const item = allItems.filter((e) => pageId && +e.id === +pageId)[0];
+  // if (!item) return <div className="wrapper">loading</div>;
+  // const { src, name, price, size }: ItemP = item;
 
   return (
     <div className="item">
-      <div className="wrapper item__wrapper">
+      {/* <div className="wrapper item__wrapper">
         <div className="item__media">
           <img src={`/${src}`} alt={name} className="item__pic" />
         </div>
@@ -49,7 +48,7 @@ export const Item: React.FC = () => {
               })}
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

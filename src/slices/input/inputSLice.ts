@@ -1,15 +1,15 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface InpuState {
   search: string;
 }
 
 const initialState: InpuState = {
-  search: "",
+  search: '',
 };
 
 export const inputSLice = createSlice({
-  name: "input",
+  name: 'input',
   initialState,
   reducers: {
     handleChange(state, action: PayloadAction<string>) {

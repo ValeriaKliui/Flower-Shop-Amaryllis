@@ -14,7 +14,5 @@ export interface FlowersAtCartState {
 }
 export type AlreadyAtCart = {
   id: number;
-  price: string;
-  size: string;
   amount: number;
 };

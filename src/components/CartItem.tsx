@@ -1,12 +1,18 @@
-import { useAppDispatch } from "../assets/hooks/hooks";
+import { useAppDispatch } from '../assets/hooks/hooks';
+// import {
+//   removeFromCart,
+//   decreaseAmount,
+//   increaseAmount,
+// } from '../slices/itemsAtCartSLice';
+import React from 'react';
 import {
-  removeFromCart,
   decreaseAmount,
+  deleteFlower,
   increaseAmount,
-} from "../slices/itemsAtCartSLice";
+} from '../slices/cart/asyncActions';
 
 type CartItemProps = {
-  id: string;
+  id: number;
   src: string;
   name: string;
   price: string[] | string;
@@ -24,10 +30,14 @@ export const CartItem: React.FC<CartItemProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   return (
-    // <div className="cart__item">
     <>
       <div className="cart__item__block">
-        <img src={src} alt="" width="150px" className="cart_item__pic" />
+        <img
+          src={src}
+          alt=""
+          width="150px"
+          className="cart_item__pic"
+        />
         <div className="cart__item__text">
           <h3>{name}</h3>
           <p>{size}</p>
@@ -37,7 +47,14 @@ export const CartItem: React.FC<CartItemProps> = ({
         <div
           className="decrease"
           onClick={() =>
-            dispatch(decreaseAmount({ id, src, name, price, amount, size }))
+            amount > 1
+              ? dispatch(
+                  decreaseAmount({
+                    id,
+                    amount: amount - 1,
+                  })
+                )
+              : dispatch(deleteFlower(id))
           }
         >
           <svg
@@ -54,7 +71,12 @@ export const CartItem: React.FC<CartItemProps> = ({
         <div
           className="increase"
           onClick={() =>
-            dispatch(increaseAmount({ id, src, name, price, amount, size }))
+            dispatch(
+              increaseAmount({
+                id,
+                amount: amount + 1,
+              })
+            )
           }
         >
           <svg
@@ -70,7 +92,10 @@ export const CartItem: React.FC<CartItemProps> = ({
       </div>
 
       <p>{price} BYN</p>
-      <div className="close" onClick={() => dispatch(removeFromCart(id))}>
+      <div
+        className="close"
+        onClick={() => dispatch(deleteFlower(id))}
+      >
         <svg
           className="close__pic delete__pic"
           xmlns="http://www.w3.org/2000/svg"
@@ -81,6 +106,5 @@ export const CartItem: React.FC<CartItemProps> = ({
         </svg>
       </div>
     </>
-    // </div>
   );
 };

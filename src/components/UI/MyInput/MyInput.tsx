@@ -1,7 +1,8 @@
 import { useDispatch } from 'react-redux';
 import classes from './MyInput.module.scss';
 import { ChangeEvent, useRef } from 'react';
-import { setInputedValue } from '../../../slices/inputSLice';
+import { setInputedValue } from '../../../slices/input/inputSLice';
+import React from 'react';
 
 type MyInputProps = {
   name: string;

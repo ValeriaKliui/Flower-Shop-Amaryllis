@@ -8,8 +8,8 @@ import React from 'react';
 import {
   addToCartAsync,
   increaseAmount,
-  selectFlowersAtCart,
-} from '../slices/cart/flowersAtCart';
+} from '../slices/cart/asyncActions';
+import { selectFlowersAtCart } from '../slices/cart/flowersAtCart';
 
 type Item = {
   id: number;
@@ -73,8 +73,6 @@ export const CatalogItem: React.FC<CatalogItemProps> = ({ item }) => {
               ? dispatch(
                   increaseAmount({
                     id: alreadyAtCart.id!,
-                    size: choosenSize,
-                    price: choosenPrice,
                     amount: alreadyAtCart.amount + 1,
                   })
                 )

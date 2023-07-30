@@ -1,57 +1,44 @@
 import { CatalogItem } from './CatalogItem';
 import { useAppSelector } from '../assets/hooks/hooks';
 import { Info } from './Info';
-// import { useGetAllItems } from "../assets/hooks/useGetAllItems";
-// import { useSelectorCategory, useSelectorSort } from "../slices/filterSlice";
 import React from 'react';
 import {
   selectFlowers,
   selectStatus,
 } from '../slices/flowers/flowersSlice';
+import { selectSort } from '../slices/sort/sortSlice';
 
 export const Catalog: React.FC = () => {
   const flowers = useAppSelector(selectFlowers);
   const status = useAppSelector(selectStatus);
-  // const inputValue = useAppSelector((state) => state.input.search);
-  // const choosenCategory = useAppSelector(useSelectorCategory);
-  // const choosenSort = useAppSelector(useSelectorSort);
-  // const items = useAppSelector((state) => state.items.items);
-  // const allItems = useGetAllItems();
+  const inputValue = useAppSelector((state) => state.input.search);
+  const choosenSort = useAppSelector(selectSort);
 
-  // const itemsCategory = items[choosenCategory as keyof Items]
-  //   ? items[choosenCategory as keyof Items]
-  //   : allItems;
+  const flowersInputFiltered = flowers.filter((flower) =>
+    flower.name.toLowerCase().includes(inputValue)
+  );
 
-  // const itemsSorted = () => {
-  //   if (choosenSort) {
-  //     return choosenSort === "name"
-  //       ? [...itemsCategory].sort((a, b) =>
-  //           a[choosenSort].localeCompare(b[choosenSort])
-  //         )
-  //       : [...itemsCategory].sort((a, b) => {
-  //           return a[choosenSort][0] - b[choosenSort][0];
-  //         });
-  //   } else return itemsCategory;
-  // };
-
-  // const itemsSearched = () => {
-  //   const searchValue = inputValue && inputValue.toLowerCase();
-  //   if (searchValue && allItems.length > 0) {
-  //     return itemsSorted().filter((elem) => {
-  //       return elem.name.toLowerCase().includes(searchValue);
-  //     });
-  //   } else return itemsSorted();
-  // };
+  const itemsSorted = () => {
+    if (choosenSort) {
+      return choosenSort === 'name'
+        ? [...flowersInputFiltered].sort((a, b) =>
+            a[choosenSort].localeCompare(b[choosenSort])
+          )
+        : [...flowersInputFiltered].sort((a, b) => {
+            return a[choosenSort][0] - b[choosenSort][0];
+          });
+    } else return flowersInputFiltered;
+  };
 
   return (
     <div className="catalog">
       <div className="wrapper catalog__wrapper">
-        {status === 'success' && (
+        {status === 'success' && itemsSorted().length > 0 && (
           <h2 className="catalog__title">Choose your Dream Plant</h2>
         )}
-        {status === 'success' ? (
+        {status === 'success' && itemsSorted().length > 0 ? (
           <div className="catalog__items">
-            {flowers.map((item) => {
+            {itemsSorted().map((item) => {
               return <CatalogItem key={item.id} item={item} />;
             })}
           </div>

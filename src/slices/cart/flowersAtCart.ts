@@ -1,80 +1,21 @@
-import {
-  createAsyncThunk,
-  createSlice,
-  PayloadAction,
-} from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   FlowerAtCart,
   FlowersAtCartState,
   AlreadyAtCart,
 } from './types';
 import { RootState } from '../../Store';
+import {
+  addToCartAsync,
+  fetchFlowersAtCart,
+  increaseAmount,
+  deleteFlower,
+} from './asyncActions';
 
 const initialState: FlowersAtCartState = {
   flowersAtCart: [],
   status: 'loading',
 };
-
-export const fetchFlowersAtCart = createAsyncThunk<
-  FlowerAtCart[],
-  undefined,
-  {
-    rejectValue: string;
-  }
->('flowers/fetchFlowersAtCart', async (_, { rejectWithValue }) => {
-  const response = await axios.get<FlowerAtCart[]>(
-    `https://t8ywpv.sse.codesandbox.io/cart`
-  );
-  if (!response) {
-    return rejectWithValue('Server Error!');
-  }
-  const data = response.data;
-  return data;
-});
-
-export const addToCartAsync = createAsyncThunk<
-  FlowerAtCart,
-  FlowerAtCart,
-  {
-    rejectValue: string;
-  }
->(
-  'flowersAtCart/addToCartAsync',
-  async (flower, { rejectWithValue }) => {
-    delete flower.id;
-    const response = await axios.post<FlowerAtCart>(
-      `https://t8ywpv.sse.codesandbox.io/cart/`,
-      flower
-    );
-    if (!response) {
-      return rejectWithValue('Server Error!');
-    }
-    const data = response.data;
-    return data;
-  }
-);
-
-export const increaseAmount = createAsyncThunk<
-  AlreadyAtCart,
-  AlreadyAtCart,
-  {
-    rejectValue: string;
-  }
->(
-  'flowersAtCart/increaseAmount',
-  async (alreadyAtCart, { rejectWithValue }) => {
-    const response = await axios.patch<AlreadyAtCart>(
-      `https://t8ywpv.sse.codesandbox.io/cart/${alreadyAtCart.id}`,
-      alreadyAtCart
-    );
-    if (!response) {
-      return rejectWithValue('Server Error!');
-    }
-    const data = response.data;
-    return data;
-  }
-);
 
 export const flowersAtCart = createSlice({
   name: 'flowersAtCart',
@@ -128,6 +69,22 @@ export const flowersAtCart = createSlice({
         }
       )
       .addCase(increaseAmount.rejected, (state) => {
+        state.status = 'failed';
+      });
+    builder
+      .addCase(deleteFlower.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(
+        deleteFlower.fulfilled,
+        (state, action: PayloadAction<number>) => {
+          state.status = 'success';
+          state.flowersAtCart = state.flowersAtCart.filter(
+            (e) => e.id !== action.payload
+          );
+        }
+      )
+      .addCase(deleteFlower.rejected, (state) => {
         state.status = 'failed';
       });
   },

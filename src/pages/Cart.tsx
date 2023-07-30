@@ -1,44 +1,45 @@
-import React from "react";
-import { MyButton } from "../components/UI/MyButton/MyButton";
-import cleanPic from "../assets/icons/trash.svg";
-import cartPic from "../assets/icons/shopping-cart_dark.svg";
-import { CartItem } from "../components/CartItem";
-import { useAppSelector, useAppDispatch } from "../assets/hooks/hooks";
+import React from 'react';
+import { MyButton } from '../components/UI/MyButton/MyButton';
+import cleanPic from '../assets/icons/trash.svg';
+import cartPic from '../assets/icons/shopping-cart_dark.svg';
+import { CartItem } from '../components/CartItem';
 import {
-  deleteAllItems,
-  useSelectorCartAmount,
-  useSelectorItemsAtCart,
-  useSelectorTotalPrice,
-} from "../slices/itemsAtCartSLice";
-import { Link } from "react-router-dom";
-import { Info } from "../components/Info";
+  useAppSelector,
+  useAppDispatch,
+} from '../assets/hooks/hooks';
+import { Link } from 'react-router-dom';
+import { Info } from '../components/Info';
+import { selectFlowersAtCart } from '../slices/cart/flowersAtCart';
 
 export const Cart: React.FC = () => {
-  const itemsAtCart = useAppSelector(useSelectorItemsAtCart).itemsAtCart;
-  const totalPrice = useAppSelector(useSelectorTotalPrice);
-  const cartAmount = useAppSelector(useSelectorCartAmount);
+  const flowersAtCart = useAppSelector(selectFlowersAtCart);
+  const totalPrice = flowersAtCart.reduce(
+    (acc, elem) => acc + +elem.price * elem.amount,
+    0
+  );
+  const totalAmount = flowersAtCart.reduce(
+    (acc, elem) => acc + elem.amount,
+    0
+  );
   const dispatch = useAppDispatch();
 
   return (
     <div className="cart ">
       <div className="wrapper cart__wrapper">
-        {itemsAtCart.length > 0 ? (
+        {flowersAtCart.length > 0 ? (
           <>
             <div className="cart_top">
               <div className="cart_top__text">
                 <img src={cartPic} alt="your cart" />
                 <h2>your cart</h2>
               </div>
-              <div
-                className="cart_top__clean"
-                onClick={() => dispatch(deleteAllItems(itemsAtCart))}
-              >
+              <div className="cart_top__clean">
                 <p>clean cart</p>
                 <img src={cleanPic} alt="clean cart" />
               </div>
             </div>
             <div className="cart__items">
-              {itemsAtCart.map((item) => {
+              {flowersAtCart.map((item) => {
                 return (
                   <CartItem
                     key={item.id}
@@ -54,11 +55,15 @@ export const Cart: React.FC = () => {
             </div>
             <div className="cart_info">
               <p>
-                plants to order: <span className="text_bold">{cartAmount}</span>
+                plants to order:{' '}
+                <span className="text_bold">{totalAmount}</span>
               </p>
               <p>
                 cost:
-                <span className="text_bold text_bright"> {totalPrice} BYN</span>
+                <span className="text_bold text_bright">
+                  {' '}
+                  {totalPrice} BYN
+                </span>
               </p>
             </div>
             <div className="cart__buttons">
