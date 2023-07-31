@@ -1,15 +1,9 @@
-import { useState } from 'react';
-import {
-  useAppSelector,
-  useAppDispatch,
-} from '../assets/hooks/hooks';
-import { MyButton } from './UI/MyButton/MyButton';
-import React from 'react';
-import {
-  addToCartAsync,
-  increaseAmount,
-} from '../slices/cart/asyncActions';
-import { selectFlowersAtCart } from '../slices/cart/flowersAtCart';
+import { useState } from "react";
+import { useAppSelector, useAppDispatch } from "../assets/hooks/hooks";
+import { MyButton } from "./UI/MyButton/MyButton";
+import React from "react";
+import { addToCartAsync, increaseAmount } from "../slices/cart/asyncActions";
+import { selectFlowersAtCart } from "../slices/cart/flowersAtCart";
 
 type Item = {
   id: number;
@@ -37,7 +31,7 @@ export const CatalogItem: React.FC<CatalogItemProps> = ({ item }) => {
 
   return (
     <div key={id} className="catalog__item">
-      <a a href={`${item.id}`}>
+      <a href={`${item.id}`}>
         <img
           src={src}
           alt={name}
@@ -48,21 +42,18 @@ export const CatalogItem: React.FC<CatalogItemProps> = ({ item }) => {
       </a>
       <h3 className="item__name">{name}</h3>
       <div className="choose-size">
-        {Array.isArray(size) &&
-          size.map((e, index) => (
-            <div
-              className={
-                choosenSize === e ? 'size size_choosen' : 'size'
-              }
-              key={index}
-              onClick={() => {
-                setChoosenSize(e);
-                setChoosenPrice(price[index]);
-              }}
-            >
-              {e}
-            </div>
-          ))}
+        {size.map((e, index) => (
+          <div
+            className={choosenSize === e ? "size size_choosen" : "size"}
+            key={index}
+            onClick={() => {
+              setChoosenSize(e);
+              setChoosenPrice(price[index]);
+            }}
+          >
+            {e}
+          </div>
+        ))}
       </div>
       <div className="item__info">
         <h3 className="text_bright ">{choosenPrice} BYN</h3>

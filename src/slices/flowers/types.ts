@@ -10,10 +10,8 @@ export type Flower = {
 
 export interface FlowersState {
   flowers: Flower[];
-  status: 'success' | 'loading' | 'failed';
+  status: "success" | "loading" | "failed";
 }
 export type params = {
   category?: string;
-  _sort?: string;
-  _order?: string;
 };

@@ -1,10 +1,10 @@
-import { useAppDispatch } from '../assets/hooks/hooks';
-import React from 'react';
+import { useAppDispatch } from "../assets/hooks/hooks";
+import React from "react";
 import {
   decreaseAmount,
   deleteFlower,
   increaseAmount,
-} from '../slices/cart/asyncActions';
+} from "../slices/cart/asyncActions";
 
 type CartItemProps = {
   id: number | undefined;
@@ -26,18 +26,15 @@ export const CartItem: React.FC<CartItemProps> = ({
   const dispatch = useAppDispatch();
   return (
     <>
-      <div className="cart__item__block">
-        <img
-          src={src}
-          alt=""
-          width="150px"
-          className="cart_item__pic"
-        />
-        <div className="cart__item__text">
-          <h3>{name}</h3>
-          <p>{size}</p>
+      <a href={`${id}`}>
+        <div className="cart__item__block">
+          <img src={src} alt="" width="150px" className="cart_item__pic" />
+          <div className="cart__item__text">
+            <h3>{name}</h3>
+            <p>{size}</p>
+          </div>
         </div>
-      </div>
+      </a>
       <div className="amount">
         <div
           className="decrease"
@@ -90,10 +87,7 @@ export const CartItem: React.FC<CartItemProps> = ({
       </div>
 
       <p>{price} BYN</p>
-      <div
-        className="close"
-        onClick={() => id && dispatch(deleteFlower(id))}
-      >
+      <div className="close" onClick={() => id && dispatch(deleteFlower(id))}>
         <svg
           className="close__pic delete__pic"
           xmlns="http://www.w3.org/2000/svg"

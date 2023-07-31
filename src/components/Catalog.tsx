@@ -1,12 +1,9 @@
-import { CatalogItem } from './CatalogItem';
-import { useAppSelector } from '../assets/hooks/hooks';
-import { Info } from './Info';
-import React from 'react';
-import {
-  selectFlowers,
-  selectStatus,
-} from '../slices/flowers/flowersSlice';
-import { selectSort } from '../slices/sort/sortSlice';
+import { CatalogItem } from "./CatalogItem";
+import { useAppSelector } from "../assets/hooks/hooks";
+import { Info } from "./Info";
+import React from "react";
+import { selectFlowers, selectStatus } from "../slices/flowers/flowersSlice";
+import { selectSort } from "../slices/sort/sortSlice";
 
 export const Catalog: React.FC = () => {
   const flowers = useAppSelector(selectFlowers);
@@ -20,7 +17,7 @@ export const Catalog: React.FC = () => {
 
   const itemsSorted = () => {
     if (choosenSort) {
-      return choosenSort === 'name'
+      return choosenSort === "name"
         ? [...flowersInputFiltered].sort((a, b) =>
             a[choosenSort].localeCompare(b[choosenSort])
           )
@@ -33,10 +30,10 @@ export const Catalog: React.FC = () => {
   return (
     <div className="catalog">
       <div className="wrapper catalog__wrapper">
-        {status === 'success' && itemsSorted().length > 0 && (
+        {status === "success" && itemsSorted().length > 0 && (
           <h2 className="catalog__title">Choose your Dream Plant</h2>
         )}
-        {status === 'success' && itemsSorted().length > 0 ? (
+        {status === "success" && itemsSorted().length > 0 ? (
           <div className="catalog__items">
             {itemsSorted().map((item) => {
               return <CatalogItem item={item} key={item.id} />;
@@ -46,9 +43,9 @@ export const Catalog: React.FC = () => {
           <Info
             title="oops..."
             text={
-              status === 'failed'
-                ? 'something went wrong'
-                : 'we dont have this plant yet'
+              status === "failed"
+                ? "something went wrong"
+                : "we dont have this plant yet"
             }
           />
         )}
