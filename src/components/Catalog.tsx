@@ -22,7 +22,7 @@ export const Catalog: React.FC = () => {
             a[choosenSort].localeCompare(b[choosenSort])
           )
         : [...flowersInputFiltered].sort((a, b) => {
-            return a[choosenSort][0] - b[choosenSort][0];
+            return (a as any)[choosenSort][0] - (b as any)[choosenSort][0];
           });
     } else return flowersInputFiltered;
   };
