@@ -1,6 +1,6 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { FlowerAtCart, AlreadyAtCart } from './types';
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+import { FlowerAtCart, AlreadyAtCart } from "./types";
 
 export const fetchFlowersAtCart = createAsyncThunk<
   FlowerAtCart[],
@@ -8,12 +8,12 @@ export const fetchFlowersAtCart = createAsyncThunk<
   {
     rejectValue: string;
   }
->('flowers/fetchFlowersAtCart', async (_, { rejectWithValue }) => {
+>("flowers/fetchFlowersAtCart", async (_, { rejectWithValue }) => {
   const response = await axios.get<FlowerAtCart[]>(
-    `https://t8ywpv.sse.codesandbox.io/cart`
+    `https://std2rx.sse.codesandbox.io/cart`
   );
   if (!response) {
-    return rejectWithValue('Server Error!');
+    return rejectWithValue("Server Error!");
   }
   const data = response.data;
   return data;
@@ -25,21 +25,18 @@ export const addToCartAsync = createAsyncThunk<
   {
     rejectValue: string;
   }
->(
-  'flowersAtCart/addToCartAsync',
-  async (flower, { rejectWithValue }) => {
-    delete flower.id;
-    const response = await axios.post<FlowerAtCart>(
-      `https://t8ywpv.sse.codesandbox.io/cart/`,
-      flower
-    );
-    if (!response) {
-      return rejectWithValue('Server Error!');
-    }
-    const data = response.data;
-    return data;
+>("flowersAtCart/addToCartAsync", async (flower, { rejectWithValue }) => {
+  delete flower.id;
+  const response = await axios.post<FlowerAtCart>(
+    `https://std2rx.sse.codesandbox.io/cart/`,
+    flower
+  );
+  if (!response) {
+    return rejectWithValue("Server Error!");
   }
-);
+  const data = response.data;
+  return data;
+});
 
 export const increaseAmount = createAsyncThunk<
   AlreadyAtCart,
@@ -48,14 +45,14 @@ export const increaseAmount = createAsyncThunk<
     rejectValue: string;
   }
 >(
-  'flowersAtCart/increaseAmount',
+  "flowersAtCart/increaseAmount",
   async (alreadyAtCart, { rejectWithValue }) => {
     const response = await axios.patch<AlreadyAtCart>(
-      `https://t8ywpv.sse.codesandbox.io/cart/${alreadyAtCart.id}`,
+      `https://std2rx.sse.codesandbox.io/cart/${alreadyAtCart.id}`,
       alreadyAtCart
     );
     if (!response) {
-      return rejectWithValue('Server Error!');
+      return rejectWithValue("Server Error!");
     }
     const data = response.data;
     return data;
@@ -69,14 +66,14 @@ export const decreaseAmount = createAsyncThunk<
     rejectValue: string;
   }
 >(
-  'flowersAtCart/increaseAmount',
+  "flowersAtCart/increaseAmount",
   async (alreadyAtCart, { rejectWithValue }) => {
     const response = await axios.patch<AlreadyAtCart>(
-      `https://t8ywpv.sse.codesandbox.io/cart/${alreadyAtCart.id}`,
+      `https://std2rx.sse.codesandbox.io/cart/${alreadyAtCart.id}`,
       alreadyAtCart
     );
     if (!response) {
-      return rejectWithValue('Server Error!');
+      return rejectWithValue("Server Error!");
     }
     const data = response.data;
     return data;
@@ -88,12 +85,12 @@ export const deleteFlower = createAsyncThunk<
   {
     rejectValue: string;
   }
->('flowersAtCart/deleteFlower', async (id, { rejectWithValue }) => {
+>("flowersAtCart/deleteFlower", async (id, { rejectWithValue }) => {
   const response = await axios.delete(
-    `https://t8ywpv.sse.codesandbox.io/cart/${id}`
+    `https://std2rx.sse.codesandbox.io/cart/${id}`
   );
   if (!response) {
-    return rejectWithValue('Server Error!');
+    return rejectWithValue("Server Error!");
   }
   return id;
 });
@@ -104,15 +101,15 @@ export const cleanCart = createAsyncThunk<
   {
     rejectValue: string;
   }
->('flowersAtCart/cleanCart', async (flowers, { rejectWithValue }) => {
+>("flowersAtCart/cleanCart", async (flowers, { rejectWithValue }) => {
   let response;
   for (const flower of flowers) {
     response = await axios.delete(
-      `https://t8ywpv.sse.codesandbox.io/cart/${flower.id}`
+      `https://std2rx.sse.codesandbox.io/cart/${flower.id}`
     );
   }
   if (!response) {
-    return rejectWithValue('Server Error!');
+    return rejectWithValue("Server Error!");
   }
   return response.data;
 });
